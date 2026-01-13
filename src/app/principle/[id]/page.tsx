@@ -4,7 +4,7 @@ import { use, useState } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle, XCircle, Lightbulb } from "lucide-react";
+import { ArrowLeft, CheckCircle, XCircle, Lightbulb, Key, HelpCircle, Building2 } from "lucide-react";
 import { principles } from "@/data/principles";
 import { getVisualization } from "@/components/Visualizations";
 import Navbar from "@/components/Navbar";
@@ -198,6 +198,102 @@ export default function PrinciplePage({ params }: { params: Promise<{ id: string
               </ul>
             </motion.div>
           </div>
+
+          {/* Key Points */}
+          {principle.keyPoints && principle.keyPoints.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="mb-16"
+            >
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                    <Key className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white">Key Points</h3>
+                </div>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {principle.keyPoints.map((point, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.7 + i * 0.1 }}
+                      className="flex items-start gap-3 text-white/70 bg-white/[0.02] rounded-lg p-3"
+                    >
+                      <span className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
+                      {point}
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+
+          {/* FAQs */}
+          {principle.faqs && principle.faqs.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="mb-16"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-yellow-500/10 flex items-center justify-center">
+                  <HelpCircle className="w-5 h-5 text-yellow-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-white">Frequently Asked Questions</h3>
+              </div>
+              <div className="space-y-4">
+                {principle.faqs.map((faq, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.75 + i * 0.1 }}
+                    className="rounded-2xl border border-white/10 bg-white/[0.02] p-6"
+                  >
+                    <h4 className="text-lg font-medium text-white mb-3">{faq.question}</h4>
+                    <p className="text-white/60 leading-relaxed">{faq.answer}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Real World Examples */}
+          {principle.realWorld && principle.realWorld.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.75 }}
+              className="mb-16"
+            >
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center">
+                    <Building2 className="w-5 h-5 text-cyan-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white">Real World Examples</h3>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {principle.realWorld.map((example, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.8 + i * 0.1 }}
+                      className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm"
+                    >
+                      {example}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           {/* Related principles */}
           {relatedPrinciples.length > 0 && (
